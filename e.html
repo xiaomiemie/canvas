@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  function A(){
+    this.name='小明'
+  }
+  A.prototype.say=function(){
+    console.log(this.name)
+  }
+  
+  function B(){
+    this.age=21
+  }
+  B.prototype=new A();
+  var b1=new B();
+  console.log(b1.name)
+
+  b1.name='话'
+    console.log(b1.name)
+  var b2=new B();
+  console.log(b2.name)
+</script>
+</html>

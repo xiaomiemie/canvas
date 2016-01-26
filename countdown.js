@@ -4,7 +4,7 @@ $(function() {
   var R = 8;
   var MARGIN_TOP = 20;
   var MAGIN_LEFT = 10;
-  const endTime = new Date(2016, 0, 25, 22, 55, 20);
+  const endTime = new Date(2016, 0, 26, 22, 55, 20);
   var curShowTimeSecond;
   var c = $('#canvas')[0];
   var context = c.getContext('2d');
@@ -28,15 +28,9 @@ $(function() {
   var time = setInterval(function() {
 
     render(context);
-    updateb(context)
+    updateb(context);
+    console.log(balls.length)
   }, 50);
-
-  function update() {
-
-    var nexthours = parseInt(nextShowTmeSeconds / 3600);
-    var nextminutes = parseInt((nextShowTmeSeconds - hours * 3600) / 60);
-    var nextseconds = nextShowTmeSeconds % 60;
-  }
 
   function setCurrentShowTimeSecond() {
     var current = new Date();
@@ -86,6 +80,18 @@ $(function() {
 
     renderDigit(79 * (R + 1), MARGIN_TOP, parseInt(seconds / 10), context);
     renderDigit(95 * (R + 1), MARGIN_TOP, seconds % 10, context);
+
+    var l = balls.length;
+
+    for (var i = 0; i < l; i++) {
+      var b = balls[i];
+
+      context.beginPath();
+      context.arc(b.x, b.y, R, 0, 2 * Math.PI);
+      context.fillStyle = b.color;
+      context.fill();
+
+    }
   }
 
   function updateb(ctx) {
@@ -100,10 +106,21 @@ $(function() {
         b.y = 768 - b.r
         b.vy = -b.vy * 0.5;
       }
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, R, 0, 2 * Math.PI);
-      ctx.fillStyle = b.color;
-      ctx.fill();
+
+      
+
+    }
+    var l2 = balls.length;
+    var cnt=0;
+    for(var m=0;m<l2;m++){
+      var b = balls[m];
+      if(b.x>0 || b.x<1024){
+        balls[cnt++]=b;
+      }
+    }
+    balls.splice(cnt,l2-cnt)
+    while(balls.length>500){
+       balls.splice(0,balls.length-500)
     }
 
   }
