@@ -1,20 +1,18 @@
 $(function() {
-  var WINDOW_WIDTH = 1024;
-  var WINDOW_HEIGHT = 768;
-  var R = 8;
-  var MARGIN_TOP = 20;
-  var MAGIN_LEFT = 10;
+  var bodywidth=$('body').width();
+  var bodyheight=$('body').height();
+  var WINDOW_WIDTH = bodywidth;
+  var WINDOW_HEIGHT = bodyheight;
+  var R = bodywidth*0.75/140;
+  var MARGIN_TOP = bodyheight*0.1;
+  var MAGIN_LEFT = bodywidth*0.1;
   const endTime = new Date(2016, 0, 26, 22, 55, 20);
   var curShowTimeSecond;
   var c = $('#canvas')[0];
   var context = c.getContext('2d');
   c.width = WINDOW_WIDTH;
   c.height = WINDOW_HEIGHT;
-  var chours = null;
-  var cminutes = null;
-  var cseconds = null;
   var balls = [];
-  var ns = null;
   var nextShowTmeSeconds = setCurrentShowTimeSecond();
   var chours1 = parseInt(nextShowTmeSeconds / 3600 / 10);
   var chours2 = parseInt(nextShowTmeSeconds / 3600 % 10);
@@ -25,11 +23,11 @@ $(function() {
 
   var cseconds1 = parseInt(nextShowTmeSeconds % 60 / 10);
   var cseconds2 = nextShowTmeSeconds % 60 % 10;
+  
   var time = setInterval(function() {
 
     render(context);
     updateb(context);
-    console.log(balls.length)
   }, 50);
 
   function setCurrentShowTimeSecond() {
@@ -45,41 +43,42 @@ $(function() {
     var hours = parseInt(curShowTimeSecond / 3600);
     var minutes = parseInt((curShowTimeSecond - hours * 3600) / 60);
     var seconds = curShowTimeSecond % 60;
+    
     if (parseInt(hours / 10) != chours1) {
       chours1 = parseInt(hours / 10);
-      addBall(R, MARGIN_TOP, parseInt(hours / 10));
+      addBall(MAGIN_LEFT+R, MARGIN_TOP, parseInt(hours / 10));
     }
     if (hours % 10 != chours2) {
       chours2 = hours % 10;
-      addBall(16 * (R + 1), MARGIN_TOP, hours % 10);
+      addBall(MAGIN_LEFT+16 * (R + 1), MARGIN_TOP, hours % 10);
     }
 
     if (parseInt(minutes / 10) != cminutes1) {
       cminutes1 = parseInt(minutes / 10);
-      addBall(40 * (R + 1), MARGIN_TOP, parseInt(minutes / 10));
+      addBall(MAGIN_LEFT+40 * (R + 1), MARGIN_TOP, parseInt(minutes / 10));
     }
     if (minutes % 10 != cminutes2) {
       cminutes2 = minutes % 10;
-      addBall(55 * (R + 1), MARGIN_TOP, minutes % 10);
+      addBall(MAGIN_LEFT+55 * (R + 1), MARGIN_TOP, minutes % 10);
     }
     if (parseInt(seconds / 10) != cseconds1) {
       cseconds1 = parseInt(seconds / 10);
-      addBall(79 * (R + 1), MARGIN_TOP, parseInt(seconds / 10));
+      addBall(MAGIN_LEFT+79 * (R + 1), MARGIN_TOP, parseInt(seconds / 10));
     }
     if (seconds % 10 != cseconds2) {
       cseconds2 = seconds % 10;
-      addBall(95 * (R + 1), MARGIN_TOP, seconds % 10);
+      addBall(MAGIN_LEFT+95 * (R + 1), MARGIN_TOP, seconds % 10);
     }
-    renderDigit(R, MARGIN_TOP, parseInt(hours / 10), context);
-    renderDigit(16 * (R + 1), MARGIN_TOP, hours % 10, context);
-    renderDigit(31 * (R + 1), MARGIN_TOP, 10, context);
+    renderDigit(MAGIN_LEFT+R, MARGIN_TOP, parseInt(hours / 10), context);
+    renderDigit(MAGIN_LEFT+16 * (R + 1), MARGIN_TOP, hours % 10, context);
+    renderDigit(MAGIN_LEFT+31 * (R + 1), MARGIN_TOP, 10, context);
 
-    renderDigit(40 * (R + 1), MARGIN_TOP, parseInt(minutes / 10), context);
-    renderDigit(55 * (R + 1), MARGIN_TOP, minutes % 10, context);
-    renderDigit(70 * (R + 1), MARGIN_TOP, 10, context);
+    renderDigit(MAGIN_LEFT+40 * (R + 1), MARGIN_TOP, parseInt(minutes / 10), context);
+    renderDigit(MAGIN_LEFT+55 * (R + 1), MARGIN_TOP, minutes % 10, context);
+    renderDigit(MAGIN_LEFT+70 * (R + 1), MARGIN_TOP, 10, context);
 
-    renderDigit(79 * (R + 1), MARGIN_TOP, parseInt(seconds / 10), context);
-    renderDigit(95 * (R + 1), MARGIN_TOP, seconds % 10, context);
+    renderDigit(MAGIN_LEFT+79 * (R + 1), MARGIN_TOP, parseInt(seconds / 10), context);
+    renderDigit(MAGIN_LEFT+95 * (R + 1), MARGIN_TOP, seconds % 10, context);
 
     var l = balls.length;
 
@@ -102,19 +101,16 @@ $(function() {
       b.x += b.vx;
       b.y += b.vy;
       b.vy += (b.a);
-      if (b.y >= 768 - b.r) {
-        b.y = 768 - b.r
+      if (b.y >= WINDOW_HEIGHT - b.r) {
+        b.y = WINDOW_HEIGHT - b.r
         b.vy = -b.vy * 0.5;
       }
-
-      
-
     }
     var l2 = balls.length;
     var cnt=0;
     for(var m=0;m<l2;m++){
       var b = balls[m];
-      if(b.x>0 || b.x<1024){
+      if(b.x>0 || b.x<WINDOW_WIDTH){
         balls[cnt++]=b;
       }
     }
@@ -122,9 +118,7 @@ $(function() {
     while(balls.length>500){
        balls.splice(0,balls.length-500)
     }
-
   }
-
 
   function addBall(x, y, num) {
     var arr = digit[num];
@@ -168,9 +162,6 @@ $(function() {
 
   function color() {
     var str = 'rgb(' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ')';
-
-
-
     return str;
   }
 })

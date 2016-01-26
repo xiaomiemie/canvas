@@ -2,17 +2,38 @@
 <html>
 <head>
   <title>基本框架</title>
+  <meta charset="utf-8">
   <style type="text/css">
+  
+  html,body{
+    height: 100%;
+    width: 100%;
+    margin: 0;padding: 0
+  }
     #canvas{
-    border:1px solid #aaa;
+    background: pink;
     display: block;
-    margin: 50px auto;
+    height: 100%;
+    /*width: 100%;*/
+    /*margin: 50px auto;*/
   }</style>
 </head>
 <body>
 <canvas id="canvas"></canvas>
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="digit.js"></script>
-<script type="text/javascript" src="countdown.js"></script>
+<!-- <script type="text/javascript" src="countdown.js"></script> -->
+<script type="text/javascript" src="cd.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var o = new CountDown({
+      el:$('#canvas'),
+      time:'1/26/2016 16:59:00',
+      // width:1000,
+      // height:768,
+    })
+  })
+  
+</script>
 </body>
 </html>
