@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ball</title>
+  <style type="text/css">
+  #canvas{
+    border:1px solid red;
+  }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript">
+  $(function(){
+     var ball = {
+        x:812,
+        y:100,
+        r:8,
+        a:9.8,
+        vx:-2,
+        vy:0,
+        color:'#005588'
+       }
+       var c= $('#canvas')[0];
+       c.width=1024;
+       c.height=768;
+       var context= c.getContext('2d');
+       
+       
+       function up(){
+        ball.x+=ball.vx;
+        ball.y+=ball.vy;
+        ball.vy+=(ball.a*0.1);
+        if(ball.y>=768-ball.r){
+          ball.y=768-ball.r
+          ball.vy=-ball.vy*0.5;
+        }
+        if(ball.x<0 || ball.x>768){
+          
+        }
+        console.log(ball.vy)
+        context.clearRect(0,0,1024,768);
+        context.beginPath();
+        context.arc(ball.x,ball.y,ball.r,0,2*Math.PI);
+        context.fillStyle=ball.color;
+        context.fill();
+       }
+       
+       // setInterval(up,50)
+       
+  })
+</script>
+</body>
+</html>

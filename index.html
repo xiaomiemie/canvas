@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>不指定canvas大小时，默认300px宽，150px高</h3>
+    <h3>设置canvas的宽高时，不建议使用css的方式，而是直接使用属性宽和高，并且不带单位。决定了canvas内里的经度</h3>
+    
+<canvas id="canvas" width="1024" height="768">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    context.moveTo(100,100);
+    context.lineTo(700,700);
+    context.moveTo(800,100);
+    context.lineTo(800,700);
+    context.lineWidth=5;
+    context.strokeStyle="#ccc"
+    context.stroke();
+  })
+</script>
+</html>

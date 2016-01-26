@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+    
+<canvas id="canvas" width="1024" height="768">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var t = [{p:[{x:0,y:0},{x:800,y:0},{x:400,y:400}],color:"#caff67"},
+    {p:[{x:0,y:0},{x:400,y:400},{x:0,y:800}],color:"#67becf"},
+    {p:[{x:800,y:0},{x:800,y:400},{x:600,y:600},{x:600,y:200}],color:"#ef3d61"},
+   {p:[{x:600,y:200},{x:600,y:600},{x:400,y:400}],color:"#f9f51a"},
+    {p:[{x:400,y:400},{x:600,y:600},{x:400,y:800},{x:200,y:600}],color:"#a594c0"},
+    {p:[{x:200,y:600},{x:400,y:800},{x:0,y:800}],color:"#fa8eec"},
+    {p:[{x:800,y:400},{x:800,y:800},{x:400,y:800}],color:"#f6ca29"}]
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    
+    for(var i=0;i<7;i++){
+      context.beginPath();
+      draw(t[i],context);
+    }
+    
+    function draw(t,ctx){
+      var len = t.p.length;
+      var p = t.p;
+      ctx.moveTo(p[0].x,p[0].y);
+      for(var i=1;i<len;i++){
+        ctx.lineTo(p[i].x,p[i].y);
+      }
+      ctx.fillStyle=t.color;
+      ctx.fill();
+      ctx.closePath();
+      ctx.strokeStyle="black";
+      ctx.stroke();
+    }
+  })
+</script>
+</html>
