@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>不指定canvas大小时，默认300px宽，150px高</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    context.fillStyle='red';
+    context.fillRect(0,0,800,500);
+    
+    context.beginPath();
+    context.arc(400,250,100,0,2*Math.PI);
+    context.fillStyle='white';
+    context.fill();
+       context.beginPath();
+    context.arc(700,250,50,0,2*Math.PI);
+    context.fillStyle='white';
+    context.fill();
+    context.clip();
+    context.font="bold 40px Arial";
+    context.fillStyle='blue'
+    context.fillText('canvas',700,250);
+  })
+</script>
+</html>

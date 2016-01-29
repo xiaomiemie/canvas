@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>探照灯效果，，注意save() restore()</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    var w =canvas.width;
+    var h =canvas.height
+    var ball={
+      x:w/2,
+      y:h/2,
+      r:100,
+      vx:20,
+      vy:15
+    }
+    setInterval(function(){
+      draw();
+      update();
+    },50);
+    
+    function draw(){
+      context.clearRect(0,0,w,h);
+      context.save(); //////////
+      context.beginPath();
+      context.fillStyle='black'
+      context.fillRect(0,0,w,h);
+      context.beginPath();     
+      context.arc(ball.x,ball.y,ball.r,0,2*Math.PI);
+       context.fillStyle='white';
+       context.fill();
+       context.clip();
+       context.beginPath();
+       context.font='bold 120px Arial';
+       context.textAlign='center';
+       context.fillStyle='#ff55cc';
+       context.fillText('小张张',w/2,h/3);
+       context.fillText('我爱你',w/2,h/4*3);
+       context.restore();
+    }
+    
+    function update(){
+      ball.x+=ball.vx;
+      ball.y+=ball.vy;
+      if(ball.x<=ball.r){
+        ball.x=ball.r;
+        ball.vx=-ball.vx;
+      }
+      if(ball.x>=w-ball.r){
+        ball.x=w-ball.r;
+         ball.vx=-ball.vx;
+      }
+      if(ball.y<=ball.r){
+        ball.y=ball.r;
+         ball.vy=-ball.vy;
+      }
+      if(ball.y>=h-ball.r){
+        ball.y=h-ball.r;
+         ball.vy=-ball.vy;
+      }
+    }
+  })
+</script>
+</html>
