@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>.textAlign='center left right' |||| textBaseline='top middle bottom ideographic（汉语）'</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    context.font="italic bold 40px Arial";
+    context.textAlign='center';
+    context.textBaseline='middle';
+    context.fillText('canvas',400,250);
+    context.moveTo(0,250);
+    context.lineTo(800,250);
+    context.stroke();
+    context.moveTo(400,0);
+    context.lineTo(400,500);
+    context.stroke();
+  })
+</script>
+</html>

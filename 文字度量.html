@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>.measureText(s)</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+<button>点击</button>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    context.font="italic bold 60px Arial";
+    var s='我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人'
+    context.fillText(s,50,200);
+    console.log(context.measureText(s).width);
+    
+    $('button').click(function(){
+      context.font="italic bold 80px Arial";
+    })
+    
+  })
+</script>
+</html>

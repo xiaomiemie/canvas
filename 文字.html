@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>.font="bold 40px Arial"</h3>
+<h3>.fillText(string,x,y) 可以看出,fillStyle对它是起作用的</h3>
+<h3>.strokeText(string,x,y) 可以看出,strokeStyle对它是起作用的</h3>
+<h3>上面两个方法还有第四个参数 [maxlen]，，，所以会有被压缩的风险</h3>
+<h3>font的参数： font-style: normal|italic  font-weight:bold |normal  font-size font-family</h3>
+<h3>然而，字数过多，，他并不会自动换行····</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    context.font="bold 40px Arial";
+    // context.fillStyle="red"
+    var g=context.createLinearGradient(200,0,400,0);
+    g.addColorStop(0.0,'red');
+    g.addColorStop(1.0,'green');
+    context.fillStyle=g;
+    context.fillText('We are family',200,200);
+    context.strokeStyle='blue';
+    context.strokeText('We are family',200,400);
+    context.strokeText('We are familytttttttttttttttttttttttttttttttttttttttttttttttttttttt',500,400,100)
+  })
+</script>
+</html>
