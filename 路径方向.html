@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>路径环绕数：取一点，向外画一条射线，如果该线经过了这个图形的边，一个方向为正，一个方向为负，如果非零，则为内部，如果只有一条，则是内部</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+     context.save();
+    context.moveTo(100,100);
+    context.lineTo(300,100);
+    context.lineTo(100,300);
+    context.lineTo(300,300);
+    context.lineTo(200,150);
+    context.lineTo(300,150);
+    context.lineTo(100,110);
+    context.lineTo(100,100);
+    context.stroke();
+    context.fillStyle='yellow';
+    context.fill();
+    ///
+    context.restore()
+    context.beginPath();
+    context.arc(400,200,50,0,2*Math.PI)
+    context.arc(400,200,20,0,2*Math.PI,true);
+    context.shadowColor='#ccc';
+    context.shadowOffsetX=5;
+    context.shadowOffsetY=5;
+    context.shadowBlur=5;
+    context.fill();
+   
+  })
+</script>
+</html>
