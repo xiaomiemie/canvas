@@ -8,22 +8,25 @@
 </body>
 <script type="text/javascript">
   function A(){
-    this.name='小明'
+    this.name='小明';
+    this.a=[1,2,3];
   }
   A.prototype.say=function(){
     console.log(this.name)
   }
   
   function B(){
-    this.age=21
+    this.age=21;
+    A.apply(this,[])
   }
-  B.prototype=new A();
+  // B.prototype=new A();
   var b1=new B();
-  console.log(b1.name)
+    var b2=new B();
+  console.log(b1.a)
 
-  b1.name='话'
-    console.log(b1.name)
-  var b2=new B();
-  console.log(b2.name)
+  b1.a.push(5)
+    console.log(b1.a)
+
+  console.log(b2.a)
 </script>
 </html>

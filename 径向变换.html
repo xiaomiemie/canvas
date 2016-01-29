@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>.createRadialGradient(x0,y0,r0,x1,y1,r1) .addColorStop(0-1,color)</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    var g= context.createRadialGradient(50,100,0,100,100,100);
+    g.addColorStop(0.0,'#fff');
+    // g.addColorStop(0.1,'#eee');
+    g.addColorStop(1.0,'#000');
+    context.save();
+    context.translate(20,20);
+    context.scale(2,2);
+    
+    context.fillStyle=g;
+    context.arc(100,100,100,0,2*Math.PI);
+    context.fill();
+    context.restore();
+    
+    context.fillStyle='#cc5588';
+    context.fillRect(300,0,200,200);
+     context.fillStyle='#ccc';
+    context.fillRect(600,0,200,200);
+  })
+</script>
+</html>

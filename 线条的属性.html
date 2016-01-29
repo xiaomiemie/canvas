@@ -11,7 +11,9 @@
   </style>
 </head>
 <body>
-<h3>moveTo(100,100)画笔移动到100,100. lineTo(200,200)画线到200,200。.lineWidth=5 线的宽度 .strokeStyle="#eee" 设置样式 .stroke()绘制</h3>
+<h3>.lineCap : butt(default) round square</h3>
+<h3>如果线条连接，只有在开始和结束的地方才有效果</h3>
+<h3>.lineJoin:miter(button) bevel(线不会相接形成尖尖角) round</h3>
     
 <canvas id="canvas" width="1024" height="768">如果不支持，我会显示</canvas>
 </body>
@@ -20,16 +22,17 @@
   $(function(){
     var c = $('#canvas')[0];
     var context=c.getContext('2d');//用context进行绘制
-    context.beginPath();
-    context.moveTo(100,100);
-    context.lineTo(700,700);
-    context.strokeStyle="red";
-     context.stroke();
-    context.beginPath();
-    context.moveTo(800,100);
-    context.lineTo(800,700);
-    context.lineWidth=5;
-    context.strokeStyle="#ccc"
+    // function drawLine(ctx,fx,fy,tx,ty,w,color,cap){
+    //   ctx.
+    // }
+    context.moveTo(5,5);
+    context.lineTo(100,100);
+    context.lineTo(0,20);
+    // context.lineCap='round';
+    context.lineWidth='5';
+    context.lineJoin='round';
+    // context.miterLimit=10;
+    // context
     context.stroke();
   })
 </script>

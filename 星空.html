@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<!-- <h3>不指定canvas大小时，默认300px宽，150px高</h3> -->
+    
+<canvas id="canvas" width="1000" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    // var g = context.createLinearGradient(0,0,0,500);
+       var g = context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,canvas.height)
+    g.addColorStop(0.0,'#035')
+    g.addColorStop(1.0,'black')
+    context.fillStyle=g;
+    context.fillRect(0,0,canvas.width,canvas.height);
+    
+    for(var i =0;i<100;i++){
+      var R = parseInt(Math.random()*10);
+      
+      var x= parseInt(Math.random()*canvas.width)+5;
+      var y= parseInt(Math.random()*canvas.height*0.6)+5;
+      var rot = parseInt(Math.random()*50);
+     drawStar(context,R,x,y,rot,'#fb3');
+    }
+    
+    //context,半径小，半径大，x,y,线宽，角度，颜色，类型
+    function drawStar(ctx,R,x,y,rot,color){
+      ctx.save();
+       ctx.translate(x,y);
+       ctx.scale(R,R);
+       ctx.rotate(rot/180*Math.PI);
+      starPath(ctx,color);
+     
+      ctx.restore();
+   
+    
+    }
+    
+    function starPath(ctx,color){
+       ctx.beginPath();
+      for(var i =0;i<=5;i++){
+      ctx.lineTo(Math.cos((18+i*72)/180*Math.PI),-Math.sin((18+i*72)/180*Math.PI))
+      ctx.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5,-Math.sin((54+i*72)/180*Math.PI)*0.5)
+      ctx.fillStyle=color;
+      ctx.fill();
+    }
+    }
+    
+      drawMoon(context,100,100,50);
+    function drawMoon(ctx,x,y,r){
+      ctx.beginPath();
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.scale(r,r)
+      drawMoonPath(ctx,r);
+      ctx.restore();
+    }
+    
+    function drawMoonPath(ctx){
+       ctx.arc(0,0,1,0.5*Math.PI,1.5*Math.PI,true);
+       ctx.moveTo(0,-1);
+       ctx.quadraticCurveTo(1,0,0,1);
+       ctx.closePath();
+    ctx.fillStyle='#fb3';
+    ctx.fill();
+    }
+    drawLand(context)
+    function drawLand(ctx){
+      // ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0,canvas.height*0.8);
+      ctx.bezierCurveTo(300,canvas.height*0.6,600,canvas.height*0.9,canvas.width,canvas.height*0.8);
+      ctx.lineTo(canvas.width,canvas.height);
+      ctx.lineTo(0,canvas.height);
+      var g = ctx.createLinearGradient(0,canvas.height,0,canvas.height*0.7);
+      g.addColorStop(0.0,'#030')
+      g.addColorStop(1.0,'#580')
+      // g.addColorStop='red'
+      ctx.fillStyle=g;
+      ctx.fill();
+    }
+    
+  })
+</script>
+</html>

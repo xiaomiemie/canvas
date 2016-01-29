@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>矩形 context.rect(x,y,width,height)</h3>
+<h3>矩形 context.fillRect(x,y,width,height)</h3>
+<h3>矩形 context.strokeRect(x,y,width,height)</h3>
+    
+<canvas id="canvas" width="1024" height="768">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+     context.fillStyle="red";
+     context.lineWidth=5;
+    context.strokeStyle="#ccc"
+    context.rect(100,100,100,100);
+    context.fill()
+    context.stroke();
+    context.beginPath();
+    context.rect(500,500,100,100);
+     context.fillStyle="blue";
+    context.fill();
+    context.stroke();
+context.fillStyle="rgba(20,222,22,0.6)"
+  context.fillRect(6,6,100,100)   ;
+  
+  function drawRect(ctx,x,y,w,h,color){
+    ctx.beginPath();
+    ctx.strokeStyle=color;
+    ctx.strokeRect(x,y,w,h);
+  }
+  function drawRect2(ctx,x,y,w,h,color){
+    ctx.beginPath();
+    ctx.fillStyle=color;
+    ctx.fillRect(x,y,w,h);
+  }
+  })
+</script>
+</html>

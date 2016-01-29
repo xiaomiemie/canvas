@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>.move(x,y) .quadraticCurveTo(x1,y1,x2,y2),,经过x,y...x2,y2</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    // context.
+    drawMoon(context,100,100,50);
+    function drawMoon(ctx,x,y,r){
+      ctx.beginPath();
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.scale(r,r)
+      drawMoonPath(ctx,r);
+      ctx.restore();
+    }
+    
+    function drawMoonPath(ctx){
+       ctx.arc(0,0,1,0.5*Math.PI,1.5*Math.PI,true);
+       ctx.moveTo(0,-1);
+       ctx.quadraticCurveTo(1,0,0,1);
+       ctx.closePath();
+    ctx.fillStyle='yellow';
+    ctx.fill();
+    
+    
+    
+    }
+   
+    // context.arc(100,100,10,1.5*Math.PI,2.5*Math.PI);
+    
+  })
+</script>
+</html>

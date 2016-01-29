@@ -11,7 +11,7 @@
   </style>
 </head>
 <body>
-<h3>moveTo(100,100)画笔移动到100,100. lineTo(200,200)画线到200,200。.lineWidth=5 线的宽度 .strokeStyle="#eee" 设置样式 .stroke()绘制</h3>
+<h3>不指定canvas大小时，默认300px宽，150px高</h3>
     
 <canvas id="canvas" width="1024" height="768">如果不支持，我会显示</canvas>
 </body>
@@ -20,17 +20,11 @@
   $(function(){
     var c = $('#canvas')[0];
     var context=c.getContext('2d');//用context进行绘制
-    context.beginPath();
-    context.moveTo(100,100);
-    context.lineTo(700,700);
-    context.strokeStyle="red";
-     context.stroke();
-    context.beginPath();
-    context.moveTo(800,100);
-    context.lineTo(800,700);
-    context.lineWidth=5;
-    context.strokeStyle="#ccc"
-    context.stroke();
+    context.translate(40,40)
+    context.fillRect(0,0,100,100);
+     context.translate(40,40)
+     context.fillRect(100,100,100,100);
+    
   })
 </script>
 </html>

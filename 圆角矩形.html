@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>分成8部分</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    
+    drawRoundRect(context,200,200,10,10,50)
+    function drawRoundRect(ctx,x,y,width,height,r){
+      ctx.save();
+      ctx.translate(x,y);
+      drawRoundRectPath(ctx,width,height,r)
+      ctx.restore();
+    }
+  })
+  
+  function drawRoundRectPath(ctx,width,height,r){
+    ctx.beginPath();
+    ctx.arc(r,r,r,Math.PI,1.5*Math.PI);
+      ctx.lineTo(r+width,0);
+      ctx.arc(r+width,r,r,1.5*Math.PI,2*Math.PI);
+      ctx.lineTo(2*r+width,r+height);
+      
+      ctx.arc(r+width,r+height,r,0,0.5*Math.PI);
+      ctx.lineTo(r,2*r+height);
+      
+      ctx.arc(r,r+height,r,0.5*Math.PI,Math.PI);
+      ctx.lineTo(0,r);
+      ctx.stroke();
+  }
+</script>
+</html>
