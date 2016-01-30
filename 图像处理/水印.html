@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  #waterMark{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+    display: none;
+  }
+  </style>
+</head>
+<body>
+<h3>.drawImage(img/canvas,````) 离屏canvas。就是第二个canvas，将第二个加载到第一个canvas上</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+<canvas id='waterMark' width='400' height='50'></canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘
+     var w=c.width;
+     var h =c.height;
+    var img = new Image();
+    img.src='img-lg.jpg';
+    img.onload=function(){
+       context.drawImage(img,0,0,w,h);
+       context.drawImage(wc,400,400,400,50);
+    }
+    
+     var wc=$('#waterMark')[0];
+    var wcontext=wc.getContext('2d');
+    wcontext.font='bold 40px Arial';
+    wcontext.fillStyle='rgba(0,0,0,0.5)';
+    wcontext.textBaseline='middle';
+    wcontext.fillText('Just Coding',20,20)
+   
+  })
+</script>
+</html>

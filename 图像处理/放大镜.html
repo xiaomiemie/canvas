@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    /*border:1px solid #aaa;*/
+    display: block;
+    margin: 50px auto;
+    cursor: pointer;
+  }
+  #offcanvas{
+     display: block;
+    margin: 50px auto;
+    border:1px solid red;
+    display: none;
+  }
+ 
+  </style>
+</head>
+<body>
+  <h3>鼠标交互事件：e.pageX-$(el).offset().left 他们俩都是包括滚动条的。</h3>
+  <h3>
+    mousedown mouswmove mouseout  mouseup。。第一种可以按照老师讲的设置个关键词，然后每个函数都分开写，在mousemove里做真假判断
+  </h3>
+  <h3>或者像例子中这样,在mousedown中定义mousemove,当mouseout或者mouseup之后，off掉mousemove事件</h3>
+  <canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+  <canvas id="offcanvas"></canvas>
+</body>
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="放大镜.js"></script>
+  <script type="text/javascript">
+ $(function(){
+  var m = new Magnifier({
+    el1:$('#canvas')[0],
+    el2:$('#offcanvas')[0],
+    src:'img-lg.jpg',
+    mr:100
+  })
+ })
+</script>
+</html>
