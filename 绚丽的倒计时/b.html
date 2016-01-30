@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+  *{
+    margin:0;
+    padding: 0;
+  }
+  ul.main>li{
+    float: left;
+    list-style: none;
+    background:#bb55cc;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-right: dashed;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Arial;
+  }
+  ul.main>li span{
+    display: block;
+    transition: transform .2s ease;
+    transform:rotate(0deg);
+  }
+  
+  ul.main>li:hover span{
+    transform:rotate(20deg);
+  }
+  ul.main>li:hover ul{
+    transform:rotateY(0deg);
+  }
+  ul.submenu{
+    transition:transform 1s ease;
+    transform:rotateY(90deg);
+  }
+  ul.submenu li{
+     list-style: none;
+    background:#ff55cc;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+     font-size: 30px;
+    font-weight: bold;
+    font-family: Arial;
+    border-bottom: double;
+    
+  }
+
+  
+  
+  </style>
+</head>
+<body>
+<ul class="main"><li><span>home</span>
+<ul class="submenu">
+  
+  <li>home1</li>
+  <li>home1</li>
+  <li>home1</li>
+  <li>home1</li>
+</ul>
+</li>
+<li><span>menu</span></li>
+<li><span>html</span></li>
+<li><span>jquery</span></li>
+</ul>
+
+
+</body>
+</html>

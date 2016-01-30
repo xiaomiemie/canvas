@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  #canvas2{
+    border:1px solid #aaa;
+    /*border-radius: 250px;*/
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>.drawImage(imgDom,dx,dy)图片按原始大小展示，超出的部分自动被裁剪掉</h3>
+<h3>drawImage(imgDom,dx,dy,dw,dh),会按照给定的w,h进行缩放以展示全部的图片</h3>
+<h3>drawImage(imgDom,sx,sy,sw,sh,dx,dy,dw,dh),先按照原图的sw,sy的位置截取sw,sh的图像，然后放在canvas的dx,dy位置,dw,dh的存放</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+<canvas id="canvas2" width="500" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+    var img = new Image();
+    img.src='img.jpg';
+    img.onload=function(){
+      context.drawImage(img,0,0,500,500)
+    }
+    
+    var c1 = $('#canvas2')[0];
+    var context1=c1.getContext('2d');//用context进行绘制
+    var img1 = new Image();
+    img1.src='img.jpg';
+    img1.onload=function(){
+      context1.drawImage(img1,0,0,500,100,0,0,500,100)
+    }
+    
+  })
+</script>
+</html>

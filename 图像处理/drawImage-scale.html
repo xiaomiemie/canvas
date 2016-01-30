@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  body{
+    background: #000;
+    margin: 0;
+    padding: 0;
+  }
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 20px auto;
+  }
+  input{
+    display: block;
+    margin: 20px auto;
+    width: 800px;
+  }
+  </style>
+</head>
+<body>
+<h3>模板</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+<input type="range" id='scaleRange' min='0.5' max='3.0' step='0.01' value='1.0'>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var context=c.getContext('2d');//用context进行绘制
+     var img = new Image();
+   var iw;var ih;
+     var range = $('#scaleRange');
+     var w=c.width;
+     var h =c.height;
+    img.src='img-lg.jpg';
+     
+    var s=range.val();
+    img.onload=function(){    
+       iw=img.width;
+       ih=img.height;      
+      drawImageByRange(s);
+       range.on('change',function(){
+         var s= range.val();
+         drawImageByRange(s)
+       })
+    }
+    function drawImageByRange(scale){
+      context.clearRect(0,0,w,h);
+      var imageWidth=iw/scale;//扩大两倍，就是让边长平分几
+      var imageHeight=ih/scale;
+      var sx = iw/2-imageWidth/2;//图形原长减去评分后的，然后除以2，得到裁剪的位置。
+      var sy = ih/2-imageHeight/2;
+      context.drawImage(img,sx,sy,iw/scale,ih/scale,0,0,w,h)
+    }
+  })
+</script>
+</html>
