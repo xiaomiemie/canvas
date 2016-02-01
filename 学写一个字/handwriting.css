@@ -1,0 +1,62 @@
+body{
+  background: #eee;
+}
+#canvas{
+  display: block;
+  margin:20px auto;
+  border:1px solid #aaa;
+  
+}
+.chooseWidth{
+  text-align: center;
+}
+.pen{
+  font-weight: bold;
+  font-family: "黑体"
+}
+#linewidth{
+  width: 70%;
+}
+.chooseColor{
+  text-align: center;
+  margin:20px;
+  
+}
+.chooseColor button{
+  color: white;
+}
+
+.red{
+  width: 80px;
+  height: 30px;
+  background: red;
+  border:none;
+}
+.green{
+  width: 80px;
+  height: 30px;
+  background: green;
+  border:none;
+}
+.blue{
+  width: 80px;
+  height: 30px;
+  background: blue;
+ border:none;
+}
+.yellow{
+  width: 80px;
+  height: 30px;
+  background: yellow;
+ border:none;
+}
+.black{
+  width: 80px;
+  height: 30px;
+  background: black;
+ border:none;
+}
+.light{
+  width:90px;
+  height: 40px;
+}

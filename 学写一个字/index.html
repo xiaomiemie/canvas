@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>学写一个字</title>
+  <link rel="stylesheet" type="text/css" href="handwriting.css">
+</head>
+<body>
+<canvas id='canvas'>
+  不支持
+</canvas>
+
+<div class="chooseColor">
+<span class='pen'>画笔颜色：</span>
+  <button class='red ' data-type='red'>红色</button>
+  <button class='green' data-type='green'>绿色</button>
+
+  <button class='yellow' data-type='yellow'>黄色</button>
+    <button class='blue' data-type='blue'>蓝色</button>
+  <button class='black light' data-type='black'>黑色</button>
+</div>
+
+<div class="chooseWidth">
+  <span class='pen'>画笔宽度：</span><input type="range" min='0' max='3' step='0.1' value='1' id='linewidth'>
+</div>
+
+
+
+<script type="text/javascript" src='jquery.min.js'></script>
+<script type="text/javascript" src='handwriting.js'></script>
+<script type="text/javascript">
+  $(function(){
+    var hw = new HandWriting({
+      el:$('#canvas')[0]
+    });
+  })
+</script>
+</body>
+</html>
