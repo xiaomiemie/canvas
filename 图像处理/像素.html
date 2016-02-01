@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvasa,#canvasb{
+    border:1px solid #aaa;
+    /*display: block;*/
+    float: left;
+    margin:  0 10px;
+  }
+  .c{
+    height: 510px;
+  }
+
+  .button{
+    text-align: center;
+  }
+  </style>
+</head>
+<body>
+<h3>.getImageData(x,y,w,h)</h3>
+<h3>.putImageData(imgData,dx,dy,dirtyX,dirtyY,dirtyW,dirtyH)</h3>
+    
+<div class="c">
+  <canvas id="canvasa" width="500" height="500">如果不支持，我会显示</canvas>
+<canvas id="canvasb" width="500" height="500">如果不支持，我会显示</canvas>
+</div>
+<div class="button">
+  <a href="#" id="a1" class="buttona">filter</a>
+</div>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var ca = $('#canvasa')[0];
+    var contexta=ca.getContext('2d');//用context进行绘制
+     var cb = $('#canvasb')[0];
+    var contextb=cb.getContext('2d');//用context进行绘制
+    var img = new Image();
+    img.src='img.jpg';
+    img.onload=function(){
+      contexta.drawImage(img,0,0,ca.width,ca.height);
+      
+      $('.buttona').on('click',function(){
+        filter()
+      })
+    }
+    
+    function filter(){
+      var imgData= contexta.getImageData(0,0,ca.width,ca.height);
+      console.log(imgData);
+      // contextb.putImageData(imgData,0,0,0,0,cb.width,cb.height)
+      //dx,dy会算上 dirtyx,dirtyy
+      // contextb.putImageData(imgData,-50,-50,50,50,cb.width-100,cb.height-100)
+      // contextb.putImageData(imgData,-50,-50,50,50,cb.width,cb.height)//还是原始大小放，被减去的50,50，右边就会被空出来
+      contextb.putImageData(imgData,-50,-50,50,50,100,100)//还是原始大小放，被减去的50,50，右边就会被空出来
+    }
+    
+    
+  })
+</script>
+</html>

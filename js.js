@@ -1,70 +1,48 @@
-  $(function() {
-    var c = $('#canvas')[0];
-    var context = c.getContext('2d'); //用context进行绘制
-    var offc = $('#offcanvas')[0];
-    var offcontext = offc.getContext('2d');
-    var scalew;
-    var scaleh;
-    var mr = 50;
-    var img = new Image();
-    img.src = 'img.jpg';
+ $(function() {
+   var ca = $('#canvasa')[0];
+   var contexta = ca.getContext('2d'); //用context进行绘制
+   var cb = $('#canvasb')[0];
+   var contextb = cb.getContext('2d'); //用context进行绘制
+   var img = new Image();
+   img.src = 'img.jpg';
+   img.onload = function() {
+     contexta.drawImage(img, 0, 0, ca.width, ca.height);
 
-    function distance(x, y, el) {
-      var l = $(el).offset().left;
-      var r = $(el).offset().top;
-      return {
-        x: x - l,
-        y: y - r
-      }
-    }
-    img.onload = function() {
-      offc.width = img.width;
-      offc.height = img.height;
-      offcontext.drawImage(img, 0, 0)
-      scalew = offc.width / c.width;
-      scaleh = offc.height / c.height;
-      context.drawImage(img, 0, 0, c.width, c.height);
-    }
-    $(c).on('mousedown', function(e) {
-      draw(true, distance(e.pageX, e.pageY, this))
-      $(c).on('mousemove', function(e) {
-        draw(true, distance(e.pageX, e.pageY, this))
-      });
-      $(c).on('mouseout', function(e) {
-        $(c).off('mousemove');
-        draw(false, distance(e.pageX, e.pageY, this))
-      });
-    });
-    $(c).on('mouseup', function(e) {
-      $(c).off('mousemove');
-      draw(false, distance(e.pageX, e.pageY, this))
+     $('.buttona').on('click', function() {
+       filter($(this).data('type'))
+     })
+   }
 
-    });
+   function filter(type) {
+     var imgData = contexta.getImageData(0, 0, ca.width, ca.height);
+     var pixelData = imgData.data;
+     switch (type) {
+       case "grey":
+         for (var i = 0; i < ca.width * ca.height; i++) {
+           var r = pixelData[4 * i + 0];
+           var g = pixelData[4 * i + 0];
+           var b = pixelData[4 * i + 0];
+           var tmp = r * 0.3 + g * 0.59 + b * .011;
+           pixelData[4 * i + 0] = tmp
+           pixelData[4 * i + 1] = tmp
+           pixelData[4 * i + 2] = tmp
+         }
 
-    function draw(flag, point) {
-      context.clearRect(0, 0, c.width, c.height);
-      context.drawImage(img, 0, 0, c.width, c.height);
-      if (flag) {
-        Magnifier(point)
-      }
-    }
+       case 'black':
+         for (var i = 0; i < ca.width * ca.height; i++) {
+           var r = pixelData[4 * i + 0];
+           var g = pixelData[4 * i + 0];
+           var b = pixelData[4 * i + 0];
+           var tmp = r * 0.3 + g * 0.59 + b * .011;
+           pixelData[4 * i + 0] = tmp
+           pixelData[4 * i + 1] = tmp
+           pixelData[4 * i + 2] = tmp
+         }
+     }
 
-    function Magnifier(point) {
-      var cx = point.x * scalew;
-      var cy = point.y * scaleh;
-      var sx = parseInt(cx - mr);
-      var sy = parseInt(cy - mr);
-      var dx = parseInt(point.x - mr);
-      var dy = parseInt(point.y - mr);
-      //把第一个参数的图像，按照后面四个参数的方式截取，添加到后四个参数的地方
-      context.save();
-      context.beginPath();
-      context.arc(point.x, point.y, mr, 0, 2 * Math.PI);
-      context.lineWidth = 10;
-      context.strokeStyle = '#690';
-      context.stroke();
-      context.clip();
-      context.drawImage(offc, sx, sy, 2 * mr, 2 * mr, dx, dy, 2 * mr, 2 * mr);
-      context.restore();
-    }
-  })
+     console.log(imgData.data);
+     contextb.putImageData(imgData, 0, 0, 0, 0, cb.width, cb.height) //还是原始大小放，被减去的50,50，右边就会被空出来
+   }
+
+
+ })

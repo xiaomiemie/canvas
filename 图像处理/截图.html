@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvasa,#canvasb{
+    border:1px solid #aaa;
+    /*display: block;*/
+    float: left;
+    margin:  0 10px;
+  }
+  .c{
+    height: 510px;
+  }
+
+  .button{
+    text-align: center;
+  }
+  </style>
+</head>
+<body>
+<h3>.getImageData(x,y,w,h)</h3>
+<h3>.putImageData(imgData,dx,dy,dirtyX,dirtyY,dirtyW,dirtyH)</h3>
+    
+<div class="c">
+  <canvas id="canvasa" width="500" height="500">如果不支持，我会显示</canvas>
+<canvas id="canvasb" width="500" height="500">如果不支持，我会显示</canvas>
+</div>
+<div class="button">
+  <a href="#" id="a1" class="buttona">filter</a>
+</div>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var ca = $('#canvasa')[0];
+    var contexta=ca.getContext('2d');//用context进行绘制
+     var cb = $('#canvasb')[0];
+    var contextb=cb.getContext('2d');//用context进行绘制
+    var img = new Image();
+    var beginx;
+    var beginy;
+    var endx;
+    var endy;
+    var w;
+    var h;
+    img.src='img.jpg';
+    img.onload=function(){
+      contexta.drawImage(img,0,0,ca.width,ca.height);
+      $('#canvasa').on('mousedown',function(e){
+        var point = distance(e.pageX,e.pageY,this);
+        beginx=point.x;
+        beginy=point.y;
+        $('#canvasa').on('mousemove',function(e){
+           var point = distance(e.pageX,e.pageY,this);
+          endx=point.x;
+          endy=point.y;
+          drawRect(true,beginx,beginy,endx,endy)
+        });
+      });
+      $('#canvasa').on('mouseup',function(e){
+        
+        var point = distance(e.pageX,e.pageY,this);
+        endx=point.x;
+          endy=point.y;
+          drawRect(false,beginx,beginy,endx,endy);
+          drawCanvas();
+          $('#canvasa').off('mousemove');
+      })
+
+    }//img
+    
+    function distance(x,y,el){
+      var mx = x-$(el).offset().left;
+      var my = y-$(el).offset().top;
+      return { x:mx,y:my}
+    }
+    
+    function drawRect(flag,bx,by,ex,ey){
+      w=ex-bx;
+      h=ey-by;
+      contexta.clearRect(0,0,ca.width,ca.height);
+      contexta.drawImage(img,0,0,ca.width,ca.height);
+      if(flag==true){
+      contexta.save();
+      contexta.beginPath();
+      contexta.lineWidth=5;
+      contexta.strokeStyle='#ff55cc';
+      contexta.strokeRect(bx,by,w,h);
+      contexta.restore();
+      }
+      
+    }
+    
+   function drawCanvas (argument) {
+      // body...
+       w=endx-beginx;
+      h=endy-beginy;
+      contextb.clearRect(0,0,cb.width,cb.height);
+      contexta.beginPath();
+      contextb.drawImage(ca,beginx,beginy,w,h,0,0,cb.width,cb.height)
+    } 
+    
+    // function filter(){
+    //   var imgData= contexta.getImageData(0,0,ca.width,ca.height);
+    
+    // }
+    
+    
+  })
+</script>
+</html>
