@@ -1,6 +1,4 @@
-body{
-  background: #eee;
-}
+
 #canvas{
   display: block;
   margin:20px auto;
@@ -15,11 +13,12 @@ body{
   font-family: "黑体"
 }
 #linewidth{
-  width: 70%;
+  width: 60%;
 }
 .chooseColor{
   text-align: center;
   margin:20px;
+  min-height: 40px;
   
 }
 .chooseColor button{
@@ -27,36 +26,42 @@ body{
 }
 
 .red{
-  width: 80px;
+  width: 30px;
   height: 30px;
   background: red;
   border:none;
 }
 .green{
-  width: 80px;
+  width: 30px;
   height: 30px;
   background: green;
   border:none;
 }
 .blue{
-  width: 80px;
+  width: 30px;
   height: 30px;
   background: blue;
  border:none;
 }
 .yellow{
-  width: 80px;
+  width: 30px;
   height: 30px;
   background: yellow;
  border:none;
 }
 .black{
-  width: 80px;
+  width: 30px;
   height: 30px;
   background: black;
  border:none;
 }
+/*
+.chooseColor button:last-child{
+  height: 30px;
+  width: 80px;
+  color:black;
+}*/
 .light{
-  width:90px;
+  width:40px;
   height: 40px;
 }

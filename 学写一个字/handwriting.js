@@ -1,20 +1,21 @@
 function HandWriting(obj) {
   this.c = obj.el;
   this.context = this.c.getContext('2d');
-  this.canvasWidth = 800;
-  this.canvasHeight = 500;
+  this.canvasWidth = Math.min(800, $(window).width() - 20);
+  this.canvasHeight = Math.min(500, $(window).height() * 0.7);
   this.c.width = this.canvasWidth;
   this.c.height = this.canvasHeight;
-  this.lastTimeStamp=0;
   this.lineWidth;
   this.lineColor = 'black';
   this.lastLoc = {
-    x: 0,
-    y: 0
-  }
-  // this.drawGrid();
+      x: 0,
+      y: 0
+    }
+    // this.drawGrid();
   this.bindEvent();
   this.chooseColor();
+  this.calcLineWidth();
+  this.bindTouchEvent();
 }
 
 HandWriting.prototype.drawGrid = function() {
@@ -33,7 +34,7 @@ HandWriting.prototype.drawGrid = function() {
   context.lineTo(this.canvasWidth / 2, this.canvasHeight - 3);
   context.moveTo(3, this.canvasHeight / 2);
   context.lineTo(this.canvasWidth - 3, this.canvasHeight / 2);
-  // context.lineTo(this.canvasHeight-3);
+
   context.strokeStyle = 'red';
   context.lineWidth = 1;
   context.stroke();
@@ -48,21 +49,13 @@ HandWriting.prototype.bindEvent = function() {
     var p = that.distance(e.pageX, e.pageY, c)
     that.lastLoc.x = p.x;
     that.lastLoc.y = p.y;
-    that.lastTimeStamp=Date.parse(new Date());
-
     $(c).on('mousemove', function(e) {
       e.preventDefault();
       var curLoc = that.distance(e.pageX, e.pageY, c);
-      var curTimeStamp = Date.parse(new Date());
-      var dis = that.calcDistance(that.lastLoc,curLoc);  
-      var time = curTimeStamp-that.lastTimeStamp;
-      that.calcLineWidth(dis,time);
       that.draw(that.lastLoc.x, that.lastLoc.y, curLoc.x, curLoc.y)
       that.lastLoc = curLoc;
-      that.lastTimeStamp=curTimeStamp;
     });
   });
-
   $(c).on('mouseup', function(e) {
     e.preventDefault();
     $(c).off('mousemove')
@@ -70,7 +63,38 @@ HandWriting.prototype.bindEvent = function() {
   $(c).on('mouseout', function(e) {
     e.preventDefault();
     $(c).off('mousemove');
-  })
+  });
+
+
+}
+HandWriting.prototype.bindTouchEvent = function() {
+  var c = this.c;
+  var that = this;
+  $(c).on('touchstart', function(e) {
+    e.preventDefault();
+    console.log(e)
+    touch=e.originalEvent.touches[0];
+    var p = that.distance(touch.pageX, touch.pageY, c)
+    that.lastLoc.x = p.x;
+    that.lastLoc.y = p.y;
+    $(c).on('touchmove', function(e) {
+      e.preventDefault();
+      touch=e.originalEvent.touches[0];
+      var curLoc = that.distance(touch.pageX, touch.pageY, c);
+      that.draw(that.lastLoc.x, that.lastLoc.y, curLoc.x, curLoc.y)
+      that.lastLoc = curLoc;
+    });
+  });
+  $(c).on('touchend', function(e) {
+    e.preventDefault();
+    $(c).off('touchmove')
+  });
+  // $(c).on('mouseout', function(e) {
+  //   e.preventDefault();
+  //   $(c).off('mousemove');
+  // });
+
+
 }
 
 HandWriting.prototype.distance = function(x, y, el) {
@@ -80,7 +104,6 @@ HandWriting.prototype.distance = function(x, y, el) {
     y: y - m.top
   }
 }
-
 HandWriting.prototype.draw = function(bx, by, ex, ey) {
   var context = this.context;
   context.save();
@@ -90,32 +113,32 @@ HandWriting.prototype.draw = function(bx, by, ex, ey) {
   context.lineCap = 'round';
   context.lineJoin = 'round';
   context.lineWidth = this.lineWidth;
-  context.strokeStyle=this.lineColor
+  context.strokeStyle = this.lineColor
   context.stroke();
   context.restore();
 
 }
 
-HandWriting.prototype.calcDistance=function(loc1, loc2) {
+HandWriting.prototype.calcDistance = function(loc1, loc2) {
   return Math.sqrt((loc1.x - loc2.x) * (loc1.x - loc2.x) + (loc1.y - loc2.y) * (loc1.y - loc2.y));
 }
 
-HandWriting.prototype.calcLineWidth=function(s,t){
+HandWriting.prototype.calcLineWidth = function() {
   var value = $('#linewidth').val();
-  var that=this;
-  this.lineWidth=value*10;
-  $('#linewidth').on('change',function(){
+  var that = this;
+  this.lineWidth = value * 10;
+  $('#linewidth').on('change', function() {
     var v = $(this).val();
-    that.lineWidth=v;
+    that.lineWidth = v;
   })
 }
 
-HandWriting.prototype.chooseColor=function(){
-  var that=this;
-  $('.chooseColor button').on('click',function(){
+HandWriting.prototype.chooseColor = function() {
+  var that = this;
+  $('.chooseColor button').on('click', function() {
     $('.chooseColor button').removeClass('light');
     $(this).addClass('light');
-    var color= $(this).data('type');
-    that.lineColor=color;
+    var color = $(this).data('type');
+    that.lineColor = color;
   })
 }
