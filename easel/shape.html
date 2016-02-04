@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>模板</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="easeljs-0.8.2.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    // var context=c.getContext('2d');//用context进行绘制
+    var stage = new createjs.Stage(c);
+    circle = new createjs.Shape();
+    circle.graphics.beginFill("red").drawCircle(100, 0, 40);
+    stage.addChild(circle);
+    
+      circle2 = new createjs.Shape();
+    circle2.graphics.beginFill("green").drawCircle(100, 100, 40);
+    // circle2.x = circle.y = 100;
+    stage.addChild(circle2);
+    
+    stage.update();
+    
+    // circle.addEventListener('click',function(){
+    //   alert('x')
+    // })
+    
+    circle.addEventListener('click',function(e){
+      // alert(
+        
+        var f= e.target.graphics.command;
+       var circle = new createjs.Shape();
+    circle.graphics.beginFill('yellow').drawCircle(f.x, f.y, f.radius);
+    stage.addChild(circle);
+    stage.removeChild(e.target);
+        console.log(e.target.graphics);
+        stage.update();
+    })
+  // createjs.Ticker.framerate=1;
+   createjs.Ticker.addEventListener("tick", handleTick);
+ function handleTick(event) {
+     // Actions carried out each tick (aka frame)
+     console.log('x')
+     if (!event.paused) {
+         // Actions carried out when the Ticker is not paused.
+     }
+ }
+ 
+ 
+    
+  })
+</script>
+</html>

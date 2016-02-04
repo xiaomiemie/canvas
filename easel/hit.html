@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<button>开始</button>
+    
+<canvas id="canvas" width="500" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="easeljs-0.8.2.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    var flag,m;
+    // var context=c.getContext('2d');//用context进行绘制
+    var stage = new createjs.Stage(c);
+    var c1=new createjs.Container();
+    var c2=new createjs.Container();
+    var c3=new createjs.Container();
+    
+    stage.addChild(c1);
+    stage.addChild(c2);
+   
+    var star= new createjs.Shape();
+    star.graphics.beginFill('red').drawPolyStar(200,200,50,5,5,0);
+    c3.addChild(star);
+    
+    circle = new createjs.Shape();   
+    circle.graphics.beginFill("red").drawCircle(400, 100, 40);  
+    c1.addChild(circle);
+    //收
+    var rect = new createjs.Shape();
+    rect.graphics.beginFill('yellow').drawRect(0,240,20,20);
+    c2.addChild(rect);
+    
+    var button = new createjs.Shape();
+    button.graphics.beginFill('#ccc').drawRect(0,0,50,30);
+    stage.addChild(button);
+    
+    
+    var moneyimg = new createjs.Bitmap('red.png');
+    moneyimg.scaleX=0.2;
+    moneyimg.scaleY=0.2;
+    moneyimg.x=50;
+    // moneyimg.regX=50;
+    c1.addChild(moneyimg);
+
+       moneyimg.addEventListener('click',a)
+    function a (e) {
+      // body..
+      console.log(e)
+    }
+     createjs.Ticker.addEventListener("tick", handleTick);
+
+    function handleTick() {
+     
+      var cw=circle.graphics.command.y;
+      if(cw>c.height){
+      cw=-20
+     }else{
+      cw+=40
+     }
+      circle2 = new createjs.Shape();    
+      circle2.graphics.beginFill("red").drawCircle(400, cw, 40);
+      c1.addChild(circle2);
+      c1.removeChild(circle)
+     circle=circle2;
+     
+     if(flag){
+     var w = rect.graphics.command.w;
+     if(!m){
+       var width=rect.graphics.command.w+100;
+       if(w>500){
+       m=true
+     }
+     }else{
+      var width=rect.graphics.command.w-100;
+      if(width==20){
+        flag=false;
+        m=false
+      }
+     }  
+       var rect2 = new createjs.Shape();
+      rect2.graphics.beginFill('yellow').drawRect(0,240,width,20);
+      c2.addChild(rect2);
+      var px = rect2.graphics.command.w;
+      var py=250;
+      var x=circle.hitTest(400,100);
+      if(circle.hitTest(px,py)){
+        console.log('success');
+        stage.addChild(c3);
+        stage.removeChild(c1);
+        stage.removeChild(c2);
+        
+      }else{
+       // console.log('fail')
+      }
+      c2.removeChild(rect)
+      rect=rect2;
+      
+     }
+        stage.update();
+     }
+  
+     
+     button.addEventListener('click',function(){
+      // rect.scaleY=5
+      flag=true
+      
+     })
+     
+ 
+    
+    
+  })
+</script>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>模板</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="easeljs-0.8.2.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    // var context=c.getContext('2d');//用context进行绘制
+var cjs = createjs,
+    canvas,
+    stage,
+    container,
+    w = window.innerWidth,
+    h = window.innerHeight;
+ 
+
+    //设置canvas属性
+    canvas = document.getElementById('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    //创建舞台
+    stage = new cjs.Stage(canvas);
+    container = new cjs.Container();//绘制外部容器
+    stage.addChild(container);
+ 
+ 
+  circle = new createjs.Shape();
+    circle.graphics.beginFill("red").drawCircle(200, 100, 40);
+    container.addChild(circle);
+    
+    
+    var data = {
+        images: ["man2.jpg"],
+        frames: {
+            width:99,
+            height: 270,
+            count: 10,//总得帧数
+            // regX: 42, regY: 60
+        },
+        animations: {
+             walk: {
+            frames: [0,1,2,3,4,5,6,7,8,9],
+            // next:'stop'
+        },
+        shoot: {
+            frames: [1,4,5,6],
+            next: "walk",
+            // speed: 0.5
+        },
+        stop:{
+          frames:[1,2]
+        }
+        }
+    };
+    var spriteSheet = new cjs.SpriteSheet(data);
+      var  animation = new cjs.Sprite(spriteSheet, "walk");
+      
+ 
+    // animation.set({x:0,y:0,scaleX: 4,scaleY:1});//缩放到全屏
+    container.addChild(animation);
+ 
+    cjs.Ticker.setFPS(2);//设置游戏帧率
+    cjs.Ticker.on("tick", stage);
+
+circle.addEventListener('click',function(){
+  container.removeChild(animation)
+   var  animation = new cjs.Sprite(spriteSheet, "shoot");
+ 
+    // animation.set({x:0,y:0,scaleX: 4,scaleY:1});//缩放到全屏
+    
+    container.addChild(animation);
+    console.log(animation)
+    animation.gotoAndStop("stop");
+})
+
+    
+  })
+</script>
+</html>

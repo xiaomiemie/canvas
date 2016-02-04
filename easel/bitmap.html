@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>模板</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="easeljs-0.8.2.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    // var context=c.getContext('2d');//用context进行绘制
+    var stage = new createjs.Stage(c);
+    circle = new createjs.Shape();
+    circle.graphics.beginFill("red").drawCircle(0, 0, 40);
+    circle.x = circle.y = 50;
+    stage.addChild(circle);
+    
+      s = new createjs.Shape();
+    s.graphics.beginFill("red").drawPolyStar(200,200,5,5,5,2)
+   
+    stage.addChild(s);
+    
+    
+    ////
+        var myShape = new createjs.Shape();
+    myShape.graphics.beginFill("red").drawRect(100, 100, 20, 50);
+
+    // console.log(myShape.hitTest(10,10)); // false
+    // console.log(myShape.hitTest(110, 125)); // true
+      stage.addChild(myShape);
+    
+     stage.addEventListener("stagemousedown", handleMouseDown);
+ function handleMouseDown(event) {
+  console.log(event)
+     var p = myShape.globalToLocal(stage.mouseX, stage.mouseY);
+     var hit = myShape.hitTest(p.x, p.y);
+     console.log(hit)
+ }
+ 
+ 
+  var data = {
+        images: ["autumn.jpg"],
+        frames: {width:50, height:50},
+        animations: {
+            stand:0,
+            run:[1,5],
+            jump:[6,8,"run"]
+        }
+    };
+    var spriteSheet = new createjs.SpriteSheet(data);
+    var animation = new createjs.Sprite(spriteSheet, "run");
+    stage.addChild(animation)
+    
+ 
+    ////
+    // var img = new Image();
+    // img.src='autumn.jpg';
+    // img.onload=function(){
+    
+    //   var bmp = new createjs.Bitmap(img);
+      
+    //   // bmp.getBounds().width
+    //   var x= bmp.getBounds().width
+    //   console.log(x)
+    //   bmp.setBounds(20,20,200,200)
+    //   stage.addChild(bmp);
+    //   stage.update();
+    // }
+    
+    
+    
+     // createjs.Ticker.addEventListener("tick", handleTick);
+
+    // function handleTick() {
+     
+    //  // //Circle will move 10 units to the right.
+    //  //    circle.x += 10;
+    //  //    //Will cause the circle to wrap back
+    //  //    if (circle.x > stage.canvas.width) { circle.x = 0; }
+    //     stage.update();
+    // }
+    stage.update();
+  })
+</script>
+</html>

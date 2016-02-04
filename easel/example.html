@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+  <title>第一课</title>
+  <style>
+  #canvas{
+    border:1px solid #aaa;
+    display: block;
+    margin: 50px auto;
+  }
+  </style>
+</head>
+<body>
+<h3>模板</h3>
+    
+<canvas id="canvas" width="800" height="500">如果不支持，我会显示</canvas>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="easeljs-0.8.2.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var c = $('#canvas')[0];
+    // var context=c.getContext('2d');//用context进行绘制
+    var stage = new createjs.Stage(c);
+    circle = new createjs.Shape();
+    circle.graphics.beginFill("red").drawCircle(0, 0, 40);
+    //Set position of Shape instance.
+    circle.x = circle.y = 50;
+    //Add Shape instance to stage display list.
+    stage.addChild(circle);
+    //Update stage will render next frame
+    stage.update();
+    
+     createjs.Ticker.addEventListener("tick", handleTick);
+
+    function handleTick() {
+      circle.beginFill('yellow');
+     // //Circle will move 10 units to the right.
+     //    circle.x += 10;
+     //    //Will cause the circle to wrap back
+     //    if (circle.x > stage.canvas.width) { circle.x = 0; }
+        stage.update();
+    }
+    
+  })
+</script>
+</html>

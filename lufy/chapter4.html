@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<div id="canvas"></div>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="lufylegend-1.5.1.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    init(50,'canvas',500,500,main);
+    function main(){
+      // alert('init')
+      //加载图片
+      var loader=new LLoader();//创建加载器
+      loader.addEventListener(LEvent.COMPLETE,loadBitmapdata);//绑定加载后的函数
+      loader.load('red.png','bitmapData');//加载数据指定
+      function loadBitmapdata(){
+        var bitmapData = new LBitmapData(loader.content);//将加载的内容转化成bitmaodata,保存额读取img对象的
+        var bitmap=new LBitmap(bitmapData);//转化成bitmap
+        var layer = new LSprite();
+        
+        addChild(layer)
+        // layer.addChild(bitmap);
+        layer.graphics.beginBitmapFill(bitmapData);
+        layer.graphics.drawArc(1,'#000',[110,80,50,0,Math.PI*2]);
+        
+        var field = new LTextField();
+        // field.text='hello world';
+        field.x=50;
+        field.y=50;
+        field.size=25;
+        field.setType(LTextFieldType.INPUT)
+        layer.addChild(field)
+      }
+    }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<div id="canvas"></div>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="lufylegend-1.5.1.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    init(50,'canvas',500,500,main);
+    function main(){
+      // alert('init')
+      //加载图片
+      var loader=new LLoader();//创建加载器
+       var loader2;
+       var bitmap;
+      loader.addEventListener(LEvent.COMPLETE,loadBitmapdata);//绑定加载后的函数
+      loader.load('up.png','bitmapData');//加载数据指定
+      function loadBitmapdata(){
+        var bitmapData = new LBitmapData(loader.content);//将加载的内容转化成bitmaodata,保存额读取img对象的
+         bitmap=new LBitmap(bitmapData);//转化成bitmap
+       loader2=new LLoader();
+        loader2.addEventListener(LEvent.COMPLETE,loadBitmapdata2);
+        loader2.load('over.png','bitmapData');
+
+      }
+      
+              function loadBitmapdata2(){
+          var bitmapData2 = new LBitmapData(loader2.content);//将加载的内容转化成bitmaodata,保存额读取img对象的
+        var bitmap2=new LBitmap(bitmapData2);//转化成bitmap
+         
+          var layer = new LSprite();
+          addChild(layer)
+          var button = new LButton(bitmap,bitmap2);
+          layer.addChild(button);
+          var field = new LTextField();
+          field.text='come'
+          layer.addChild(field);
+          button.addEventListener(LMouseEvent.MOUSE_DOWN,downshow);
+          function downshow(){
+            field.text='click down'
+          }
+        }
+        
+        
+    }
+  })
+</script>
+</body>
+</html>

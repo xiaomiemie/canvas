@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<div id="canvas"></div>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="lufylegend-1.5.1.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    init(200,'canvas',500,500,main);
+    function main(){
+      // alert('init')
+      //加载图片
+       var layer ;
+      var loader=new LLoader();//创建加载器
+      loader.addEventListener(LEvent.COMPLETE,loadBitmapdata);//绑定加载后的函数
+      loader.load('chara.png','bitmapData');//加载数据指定
+      function loadBitmapdata(){
+        var bitmapData = new LBitmapData(loader.content,0,0,64,64);//将加载的内容转化成bitmaodata,保存额读取img对象的
+        layer = new LSprite();
+        addChild(layer)
+        var list=LGlobal.divideCoordinate(256,256,4,4)
+        animation = new LAnimation(layer,bitmapData,list)
+        layer.addEventListener(LEvent.ENTER_FRAME,onframe)
+       function onframe(){
+        var row= animation.getAction();
+        switch(row[0]){
+          case 0:
+          if(layer.y<100){
+            layer.y+=5
+          }else{
+            animation.setAction(2);
+          }
+          break;
+          case 2:
+           if(layer.x<100){
+            layer.x+=5
+          }else{
+            animation.setAction(3);
+          }
+          break;
+          case 3:
+          if(layer.y>0){
+            layer.y-=5
+          }else{
+            animation.setAction(1);
+          }
+          break;
+          case 1:
+          if(layer.x>0){
+            layer.x-=5
+          }else{
+            animation.setAction(0);
+            // layer.removeEventListener(LEvent.ENTER_FRAME,onframe)
+          }
+          break;
+        }
+        
+        animation.onframe();
+       }
+          
+      }
+    }
+  })
+</script>
+</body>
+</html>
